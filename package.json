@@ -5,13 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
     "three": "^0.181.1"
   },
   "devDependencies": {
+    "@types/three": "^0.181.0",
+    "typescript": "^5.9.3",
     "vite": "^7.2.4"
-  }
+  },
+  "packageManager": "pnpm@10.26.2"
 }

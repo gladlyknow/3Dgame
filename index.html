@@ -3,148 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#77d5ef" />
-    <meta
-      name="description"
-      content="Tire Town School 前五集儿童 3D 英语学习游戏概念 Demo"
-    />
-    <title>Tire Town School · 3D Learning Demo</title>
+    <meta name="theme-color" content="#a8e4f4" />
+    <meta name="description" content="Tire Town School 第一集互动 3D 学习 Demo" />
+    <title>Tire Town School · Eddy's First Day</title>
   </head>
   <body>
-    <div id="app">
-      <canvas id="game" aria-label="3D 游戏画面"></canvas>
+    <main id="app">
+      <canvas id="game" aria-label="Tire Town School 第一集 3D 游戏画面"></canvas>
 
-      <header class="topbar">
-        <button id="brandButton" class="brand" aria-label="返回场景地图">
-          <span class="brand-wheel" aria-hidden="true">✦</span>
-          <span><strong>TIRE TOWN</strong><small>LEARNING ADVENTURE</small></span>
-        </button>
-        <div class="top-actions">
-          <div class="star-bank" title="已获得的星星"><span>★</span><b id="starCount">0</b></div>
-          <button id="soundButton" class="round-button" aria-label="开关声音">🔊</button>
-          <button id="helpButton" class="round-button" aria-label="玩法帮助">?</button>
-        </div>
-      </header>
-
-      <aside id="missionPanel" class="mission-panel hidden" aria-live="polite">
-        <div class="episode-pill" id="episodePill">EPISODE 01</div>
-        <h1 id="missionTitle">Eddy's First Day</h1>
-        <p id="missionSubtitle">艾迪的第一天</p>
-        <div class="mission-rule"></div>
-        <p id="missionPrompt" class="mission-prompt">驶入校园，认识新地方。</p>
-        <div id="missionSteps" class="mission-steps"></div>
-        <div class="word-pocket">
-          <span>WORD POCKET · 单词口袋</span>
-          <div id="wordChips"></div>
-        </div>
-      </aside>
-
-      <div id="speechBubble" class="speech-bubble hidden" aria-live="assertive">
-        <div id="speakerAvatar" class="speaker-avatar">E</div>
-        <div>
-          <b id="speakerName">Eddy · 艾迪</b>
-          <p id="speechEnglish"></p>
-          <small id="speechChinese"></small>
-        </div>
-      </div>
-
-      <div class="speedometer hidden" id="speedometer" aria-label="速度表">
-        <span>SPEED</span>
-        <b id="speedValue">0</b>
-        <small>km/h</small>
-        <div class="speed-track"><i id="speedFill"></i></div>
-      </div>
-
-      <div class="desktop-hint hidden" id="desktopHint">
-        <span><kbd>WASD</kbd> / <kbd>↑↓←→</kbd> 驾驶</span>
-        <span><kbd>Space</kbd> 鸣笛</span>
-      </div>
-
-      <div id="touchControls" class="touch-controls hidden">
-        <div class="steer-pad">
-          <button data-control="left" aria-label="左转">◀</button>
-          <div>
-            <button data-control="forward" aria-label="前进">▲</button>
-            <button data-control="back" aria-label="后退">▼</button>
+      <div id="gameHud" class="game-hud" aria-hidden="true">
+        <section class="objective-card" aria-live="polite">
+          <span id="chapterLabel" class="chapter-label">FIRST DAY · 01 / 06</span>
+          <div class="objective-row">
+            <span id="directionArrow" class="direction-arrow" aria-hidden="true">↑</span>
+            <div>
+              <strong id="objectiveEnglish">Drive to school</strong>
+              <small id="objectiveChinese">沿着蓝色道路前往学校</small>
+            </div>
           </div>
-          <button data-control="right" aria-label="右转">▶</button>
-        </div>
-        <button id="hornButton" class="horn-button" aria-label="鸣笛"><span>♪</span><small>HONK</small></button>
-      </div>
+        </section>
 
-      <section id="homeScreen" class="home-screen">
-        <div class="home-copy">
-          <div class="eyebrow"><span></span> PLAY · SPEAK · GROW</div>
-          <h1>Drive into a<br /><em>world of words.</em></h1>
-          <p>和艾迪一起开进轮胎小镇，在游戏里认识朋友、学习英语，也学会安全、勇气与互相帮助。</p>
-          <button id="startButton" class="primary-button">
-            <span>开始冒险</span><small>START ADVENTURE</small><i>→</i>
+        <div class="hud-actions">
+          <button id="soundButton" class="icon-button" type="button" aria-label="关闭声音">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path class="sound-wave" d="M16 8.5c1.7 1.7 1.7 5.3 0 7M18.5 6c3.2 3.2 3.2 8.8 0 12"/></svg>
           </button>
-          <div class="home-meta">
-            <span><b>5</b> 个故事场景</span>
-            <span><b>15+</b> 个启蒙词汇</span>
-            <span><b>3–10</b> 岁亲子友好</span>
-          </div>
+          <button id="pauseButton" class="icon-button" type="button" aria-label="暂停游戏">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>
+          </button>
         </div>
-        <div class="home-badge"><span>★</span><b>LEARN<br />BY PLAY</b></div>
-        <button id="mapPreview" class="map-preview" aria-label="查看场景地图">
-          <span>EXPLORE THE TOWN</span>
-          <div class="mini-route"><i></i><i></i><i></i><i></i><i></i></div>
-        </button>
-      </section>
 
-      <section id="mapScreen" class="map-screen hidden">
-        <div class="map-heading">
+        <div id="safetyHint" class="safety-hint" aria-live="assertive">
+          <i></i><span><b>SAFE &amp; SLOW</b><small>安全减速中</small></span>
+        </div>
+
+        <section id="subtitleBar" class="subtitle-bar" aria-live="polite">
+          <span id="speakerBadge" class="speaker-badge">E</span>
           <div>
-            <span class="eyebrow"><span></span> STORY MAP · 故事地图</span>
-            <h2>Choose your next stop.</h2>
-            <p>选择一集，开进故事里学习。</p>
+            <b id="speakerName">EDDY</b>
+            <p id="subtitleEnglish">My first day. Here I go!</p>
+            <small id="subtitleChinese">第一天上学，我出发啦！</small>
           </div>
-          <button id="closeMapButton" class="round-button light" aria-label="关闭地图">×</button>
+        </section>
+
+        <div id="touchControls" class="touch-controls" aria-label="触屏驾驶控制">
+          <div class="steering-controls">
+            <button data-control="left" type="button" aria-label="左转">‹</button>
+            <button data-control="right" type="button" aria-label="右转">›</button>
+          </div>
+          <div class="pedal-controls">
+            <button data-control="back" class="brake-pedal" type="button" aria-label="刹车和倒车"><span></span><small>BRAKE</small></button>
+            <button data-control="forward" class="go-pedal" type="button" aria-label="前进"><span>↑</span><small>GO</small></button>
+          </div>
         </div>
-        <div id="episodeCards" class="episode-cards"></div>
-        <div class="map-footer">
-          <span><i></i> 完成任务会点亮故事徽章</span>
-          <button id="continueButton">继续上次冒险 <b>→</b></button>
+
+        <div class="keyboard-help"><kbd>WASD</kbd><span>驾驶</span><kbd>SPACE</kbd><span>鸣笛</span></div>
+      </div>
+
+      <section id="introScreen" class="intro-screen">
+        <div class="intro-shade"></div>
+        <article class="intro-card">
+          <div class="episode-kicker"><span>INTERACTIVE STORY</span><b>EPISODE 01</b></div>
+          <h1>Eddy’s<br /><em>First Day</em></h1>
+          <p class="intro-cn">艾迪的第一天</p>
+          <p class="intro-copy">第一次来到轮胎镇学校。慢慢开、仔细看，再勇敢地向新朋友问好。</p>
+          <div class="learning-preview" aria-label="本集学习内容">
+            <span>HELLO</span><span>SCHOOL</span><span>FAST · SLOW</span>
+          </div>
+          <button id="startButton" class="primary-button" type="button">
+            <span><b>开始第一天</b><small>START THE STORY</small></span><i>→</i>
+          </button>
+          <p class="parent-note">约 5–7 分钟 · 无失败惩罚 · 支持触屏</p>
+        </article>
+        <div class="title-lockup"><i></i><span>TIRE TOWN</span><small>SCHOOL</small></div>
+      </section>
+
+      <section id="choicePanel" class="choice-panel" aria-hidden="true">
+        <span class="choice-eyebrow">YOUR TURN · 轮到你说</span>
+        <h2>How will Eddy say hello?</h2>
+        <div class="choice-buttons">
+          <button data-choice="intro" type="button"><b>Hello! I’m Eddy.</b><small>你好！我是艾迪。</small></button>
+          <button data-choice="poppy" type="button"><b>Hi, Poppy!</b><small>嗨，波比！</small></button>
         </div>
       </section>
 
-      <section id="resultScreen" class="result-screen hidden" aria-live="assertive">
-        <div class="result-card">
-          <div class="result-rays"></div>
-          <div class="result-badge">★</div>
-          <span class="eyebrow center">MISSION COMPLETE</span>
-          <h2 id="resultTitle">Great job!</h2>
-          <p id="resultCopy"></p>
-          <div id="resultWords" class="result-words"></div>
-          <div class="result-actions">
-            <button id="replayButton" class="secondary-button">再玩一次</button>
-            <button id="nextButton" class="primary-button"><span>下一站</span><small>NEXT STORY</small><i>→</i></button>
-          </div>
-        </div>
+      <section id="pausePanel" class="modal-panel" aria-hidden="true">
+        <article>
+          <span>STORY PAUSED</span>
+          <h2>休息一下</h2>
+          <p>准备好后，我们继续艾迪的第一天。</p>
+          <button id="resumeButton" class="primary-button compact" type="button"><span><b>继续故事</b><small>KEEP DRIVING</small></span><i>→</i></button>
+        </article>
       </section>
 
-      <section id="helpScreen" class="modal-screen hidden" role="dialog" aria-modal="true">
-        <div class="help-card">
-          <button id="closeHelpButton" class="round-button light close-modal">×</button>
-          <span class="eyebrow"><span></span> HOW TO PLAY</span>
-          <h2>小司机指南</h2>
-          <div class="help-grid">
-            <div><b>01</b><span>开车靠近发光目标</span><small>Drive to the glowing goal</small></div>
-            <div><b>02</b><span>听一听，再跟着读</span><small>Listen and repeat</small></div>
-            <div><b>03</b><span>完成任务获得星星</span><small>Finish and earn a star</small></div>
-          </div>
-          <p>没有失败惩罚、没有广告，也不要求孩子输入个人信息。低龄孩子建议由家长陪同。</p>
-          <button id="gotItButton" class="primary-button"><span>我知道了</span><small>LET'S DRIVE</small><i>✓</i></button>
-        </div>
+      <section id="completePanel" class="complete-panel" aria-hidden="true">
+        <article>
+          <div class="finish-mark"><span>✓</span></div>
+          <span class="choice-eyebrow">FIRST DAY COMPLETE</span>
+          <h2>You found a friend.</h2>
+          <p>艾迪学会了慢下来、注意安全，也勇敢地向新朋友打了招呼。</p>
+          <div class="word-recap"><span>SCHOOL</span><span>FAST</span><span>SLOW</span><span>HELLO</span></div>
+          <button id="replayButton" class="primary-button compact" type="button"><span><b>再玩一次</b><small>PLAY AGAIN</small></span><i>↻</i></button>
+        </article>
       </section>
 
       <div id="loadingScreen" class="loading-screen">
-        <div class="loader-wheel"><i></i><i></i><i></i></div>
-        <strong>BUILDING TIRE TOWN</strong>
-        <span>正在铺好小镇的路…</span>
+        <div class="loading-wheel"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <b>WELCOME TO TIRE TOWN</b><span>正在准备艾迪的第一天…</span>
       </div>
-    </div>
-    <script type="module" src="/src/main.js"></script>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
