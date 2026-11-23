@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#77d5ef" />
+    <meta
+      name="description"
+      content="Tire Town School 前五集儿童 3D 英语学习游戏概念 Demo"
+    />
+    <title>Tire Town School · 3D Learning Demo</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game" aria-label="3D 游戏画面"></canvas>
+
+      <header class="topbar">
+        <button id="brandButton" class="brand" aria-label="返回场景地图">
+          <span class="brand-wheel" aria-hidden="true">✦</span>
+          <span><strong>TIRE TOWN</strong><small>LEARNING ADVENTURE</small></span>
+        </button>
+        <div class="top-actions">
+          <div class="star-bank" title="已获得的星星"><span>★</span><b id="starCount">0</b></div>
+          <button id="soundButton" class="round-button" aria-label="开关声音">🔊</button>
+          <button id="helpButton" class="round-button" aria-label="玩法帮助">?</button>
+        </div>
+      </header>
+
+      <aside id="missionPanel" class="mission-panel hidden" aria-live="polite">
+        <div class="episode-pill" id="episodePill">EPISODE 01</div>
+        <h1 id="missionTitle">Eddy's First Day</h1>
+        <p id="missionSubtitle">艾迪的第一天</p>
+        <div class="mission-rule"></div>
+        <p id="missionPrompt" class="mission-prompt">驶入校园，认识新地方。</p>
+        <div id="missionSteps" class="mission-steps"></div>
+        <div class="word-pocket">
+          <span>WORD POCKET · 单词口袋</span>
+          <div id="wordChips"></div>
+        </div>
+      </aside>
+
+      <div id="speechBubble" class="speech-bubble hidden" aria-live="assertive">
+        <div id="speakerAvatar" class="speaker-avatar">E</div>
+        <div>
+          <b id="speakerName">Eddy · 艾迪</b>
+          <p id="speechEnglish"></p>
+          <small id="speechChinese"></small>
+        </div>
+      </div>
+
+      <div class="speedometer hidden" id="speedometer" aria-label="速度表">
+        <span>SPEED</span>
+        <b id="speedValue">0</b>
+        <small>km/h</small>
+        <div class="speed-track"><i id="speedFill"></i></div>
+      </div>
+
+      <div class="desktop-hint hidden" id="desktopHint">
+        <span><kbd>WASD</kbd> / <kbd>↑↓←→</kbd> 驾驶</span>
+        <span><kbd>Space</kbd> 鸣笛</span>
+      </div>
+
+      <div id="touchControls" class="touch-controls hidden">
+        <div class="steer-pad">
+          <button data-control="left" aria-label="左转">◀</button>
+          <div>
+            <button data-control="forward" aria-label="前进">▲</button>
+            <button data-control="back" aria-label="后退">▼</button>
+          </div>
+          <button data-control="right" aria-label="右转">▶</button>
+        </div>
+        <button id="hornButton" class="horn-button" aria-label="鸣笛"><span>♪</span><small>HONK</small></button>
+      </div>
+
+      <section id="homeScreen" class="home-screen">
+        <div class="home-copy">
+          <div class="eyebrow"><span></span> PLAY · SPEAK · GROW</div>
+          <h1>Drive into a<br /><em>world of words.</em></h1>
+          <p>和艾迪一起开进轮胎小镇，在游戏里认识朋友、学习英语，也学会安全、勇气与互相帮助。</p>
+          <button id="startButton" class="primary-button">
+            <span>开始冒险</span><small>START ADVENTURE</small><i>→</i>
+          </button>
+          <div class="home-meta">
+            <span><b>5</b> 个故事场景</span>
+            <span><b>15+</b> 个启蒙词汇</span>
+            <span><b>3–10</b> 岁亲子友好</span>
+          </div>
+        </div>
+        <div class="home-badge"><span>★</span><b>LEARN<br />BY PLAY</b></div>
+        <button id="mapPreview" class="map-preview" aria-label="查看场景地图">
+          <span>EXPLORE THE TOWN</span>
+          <div class="mini-route"><i></i><i></i><i></i><i></i><i></i></div>
+        </button>
+      </section>
+
+      <section id="mapScreen" class="map-screen hidden">
+        <div class="map-heading">
+          <div>
+            <span class="eyebrow"><span></span> STORY MAP · 故事地图</span>
+            <h2>Choose your next stop.</h2>
+            <p>选择一集，开进故事里学习。</p>
+          </div>
+          <button id="closeMapButton" class="round-button light" aria-label="关闭地图">×</button>
+        </div>
+        <div id="episodeCards" class="episode-cards"></div>
+        <div class="map-footer">
+          <span><i></i> 完成任务会点亮故事徽章</span>
+          <button id="continueButton">继续上次冒险 <b>→</b></button>
+        </div>
+      </section>
+
+      <section id="resultScreen" class="result-screen hidden" aria-live="assertive">
+        <div class="result-card">
+          <div class="result-rays"></div>
+          <div class="result-badge">★</div>
+          <span class="eyebrow center">MISSION COMPLETE</span>
+          <h2 id="resultTitle">Great job!</h2>
+          <p id="resultCopy"></p>
+          <div id="resultWords" class="result-words"></div>
+          <div class="result-actions">
+            <button id="replayButton" class="secondary-button">再玩一次</button>
+            <button id="nextButton" class="primary-button"><span>下一站</span><small>NEXT STORY</small><i>→</i></button>
+          </div>
+        </div>
+      </section>
+
+      <section id="helpScreen" class="modal-screen hidden" role="dialog" aria-modal="true">
+        <div class="help-card">
+          <button id="closeHelpButton" class="round-button light close-modal">×</button>
+          <span class="eyebrow"><span></span> HOW TO PLAY</span>
+          <h2>小司机指南</h2>
+          <div class="help-grid">
+            <div><b>01</b><span>开车靠近发光目标</span><small>Drive to the glowing goal</small></div>
+            <div><b>02</b><span>听一听，再跟着读</span><small>Listen and repeat</small></div>
+            <div><b>03</b><span>完成任务获得星星</span><small>Finish and earn a star</small></div>
+          </div>
+          <p>没有失败惩罚、没有广告，也不要求孩子输入个人信息。低龄孩子建议由家长陪同。</p>
+          <button id="gotItButton" class="primary-button"><span>我知道了</span><small>LET'S DRIVE</small><i>✓</i></button>
+        </div>
+      </section>
+
+      <div id="loadingScreen" class="loading-screen">
+        <div class="loader-wheel"><i></i><i></i><i></i></div>
+        <strong>BUILDING TIRE TOWN</strong>
+        <span>正在铺好小镇的路…</span>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
